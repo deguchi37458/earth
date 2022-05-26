@@ -21,7 +21,7 @@ function init(){
 
     //マテリアル　材質
     const material = new THREE.MeshStandardMaterial({
-        map: new THREE.TExtureLoader().load("texture/earthmap1k.jpg")
+        map: new THREE.TextureLoader().load("textures/earthmap1k.jpg")
     });
 
     //メッシュ
@@ -38,4 +38,28 @@ function init(){
     scene.add(pointLight);
     const pointLightHelper = new THREE.PointLightHelper(pointLight, 30);
     scene.add(pointLightHelper);
+
+    //フレーム毎に呼び出される関数
+    function tick(){
+        rot += 0.5;
+
+        // ラジアン変換
+        const radian = (rot * Math.PI)/ 180;
+
+        //角度に応じてカメラの位置を変える
+        camera.position.x = 1000 * Math.sin(radian);
+        camera.position.z = 2000 * Math.cos(radian);
+
+        //ライトを周回させる
+        pointLight.position.set(
+            500 * Math.sin(Date.now() / 500),
+            500 * Math.sin(Date.now() / 1000),
+            500 * Math.cos(Date.now() / 500)
+        );
+
+        //レンダリング
+        renderer.render(scene, camera);
+        requestAnimationFrame(tick);
+    }
+    tick();
 }
