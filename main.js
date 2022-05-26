@@ -31,7 +31,7 @@ function init(){
     //光源
     const directionalLight = new THREE.DirectionalLight( 0xFFFFFF, 1.9);
     directionalLight.position.set(1, 1, 1);
-    scene.add(earth);
+    scene.add(directionalLight);
 
     //ポイント光源
     const pointLight = new THREE.PointLight( 0xffffff, 2, 1000);
@@ -49,6 +49,9 @@ function init(){
         //角度に応じてカメラの位置を変える
         camera.position.x = 1000 * Math.sin(radian);
         camera.position.z = 2000 * Math.cos(radian);
+
+        //カメラの見る位置を固定する
+        camera.lookAt(new THREE.Vector3(0, 0, -400));
 
         //ライトを周回させる
         pointLight.position.set(
