@@ -21,7 +21,7 @@ function init(){
 
     //マテリアル　材質
     const material = new THREE.MeshStandardMaterial({
-        map: new THREE.TExtureLoader().load("texture/earthmap1k.jpeg")
+        map: new THREE.TExtureLoader().load("texture/earthmap1k.jpg")
     });
 
     //メッシュ
