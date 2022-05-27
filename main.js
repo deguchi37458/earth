@@ -39,6 +39,32 @@ function init(){
     const pointLightHelper = new THREE.PointLightHelper(pointLight, 30);
     scene.add(pointLightHelper);
 
+    //星屑の生成
+    createStarField();
+    function createStarField() {
+        const vertices = [];
+        for(let i = 0; i < 500; i++){
+            const x = 3000 * (Math.random() - 0.5);
+            const y = 3000 * (Math.random() - 0.5);
+            const z = 3000 * (Math.random() - 0.5);
+            vertices .push(x, y, z);
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute(
+            "position", new THREE.Float32BufferAttribute(vertices, 3)
+        );
+
+        const material = new THREE.PointsMaterial({
+            size: 8,
+            color: 0xffffff,
+        });
+
+        // メッシュ
+        const stars = new THREE.Points(geometry, material);
+        scene.add(stars);
+    }
+
     //フレーム毎に呼び出される関数
     function tick(){
         rot += 0.5;
